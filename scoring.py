@@ -9,7 +9,7 @@ and neither function has been checked against bad input.
 2. Move apply_streak_bonus() into scoring_helpers.py and fix the import here.
 3. Find 2-3 "breaker" inputs for session_rating() and decide if they need handling.
 """
-
+from scoring_helpers import apply_streak_bonus
 
 def session_rating(combined_score: int) -> str:
     """Rate a study session from its combined minutes+focus score. Correct and tested."""
@@ -22,12 +22,6 @@ def session_rating(combined_score: int) -> str:
     if combined_score >= 60:
         return "Meh"
     return "Skip"
-
-
-def apply_streak_bonus(combined_score: int, streak_days: int) -> int:
-    """Add a bonus for consecutive study days, capped at 100. Works fine -- it's just in the wrong file."""
-    boosted = combined_score + streak_days * 2
-    return min(boosted, 100)
 
 
 def render_session_scorer_tab():
@@ -51,7 +45,12 @@ def run_demo():
         boosted = apply_streak_bonus(raw, streak)
         rating = session_rating(boosted)
         print(f"Raw: {raw} -> Boosted: {boosted} -> Rating: {rating}")
-
+    # test session_rating against breaker inputs such as int over 100, negative int, float, str, and None.
+    """print("int over 100:", session_rating(101))  # breaker input: int over 100
+    print("negative int:", session_rating(-5))   # breaker input: negative int
+    print("float:", session_rating(87.5)) # breaker input: float
+    print("str:", session_rating("80")) # breaker input: str
+    print("None:", session_rating(None))  # breaker input: None"""
 
 if __name__ == "__main__":
     run_demo()
