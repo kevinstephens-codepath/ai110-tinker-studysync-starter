@@ -103,4 +103,12 @@ Reran and tested that validation works correctly.
 >A. Something I did not test for is emojis, Tested after this question and they work in the subject line, and you can't type them in the duration, it only allows whole numbers.
 
 ## Part 3
-Ran sessions.py standalone.
+Ran sessions.py standalone.  
+Wrote the SesssionDC class as a dataclass.  
+Implemented SessionDC as an object and printed it same as the original class.  
+Both print the same thing except for the class name.  
+
+>Q. What did @dataclass generate that you didn't write yourself?  
+>A. The @dataclass genereates __init__ and __repr__ methods without having to write them. Allows you to have a simple class with just the variables and methods you need without having to write a specific __init__ or __repr__ method.
+
+## Part 4

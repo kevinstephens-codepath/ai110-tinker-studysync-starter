@@ -82,8 +82,7 @@ def render_session_log_tab():
     duration = st.number_input("Duration (minutes)", value=30, step=1)
 
     if st.button("Add session"):
-        # TODO (Part 2): reject an empty/whitespace-only subject and a
-        # duration that isn't > 0. Show st.error(...) instead of appending.
+        # (Part 2)
         if not subject.strip():
             st.error("Subject cannot be empty.")
         elif duration <= 0:
@@ -111,8 +110,7 @@ def render_session_log_tab():
 if __name__ == "__main__":
     plain = PlainSession("Study group: Calc II", 45, priority="high")
     print(plain)
-    # TODO (Part 3): create a SessionDC with the same values and print it too --
-    # compare the two __repr__ outputs and the amount of code each required.
+    # (Part 3)
     session_dc = SessionDC("Study group: Calc II", 45, priority="high")
     print(session_dc)
 
