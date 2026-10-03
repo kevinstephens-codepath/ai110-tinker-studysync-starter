@@ -63,3 +63,44 @@ Decisions:
 
 > Q: "state, in one sentence: what moved, one AI suggestion you verified, one breaker input that mattered."  
 > A: The function that moved was apply_streak_bonus, I verified the one AI explanation I recieved, and the breaker that mattered would have to be str, as it would be significant for the program to pass a string to session_rating without human intervention somewhere.
+
+# TF Notes - 2B
+
+## Part 1
+Tested the bug, and asked claude for why it doesn't correctly update.
+
+> A. The cause is in sessions.py:57-61. Streamlit re-executes the whole script from top to bottom on every interaction, and a plain local variable doesn't survive that.
+> count = 0
+> if st.button("Log a session (broken)"):
+>     count += 1
+> st.metric("Sessions logged (broken)", count)
+> Here is what happens when you click the button:
+> Click. Streamlit starts a new run of the script. This is a rerun, not a callback into the existing run.
+> count = 0 runs first. The new run has a fresh count and nothing carries over from the previous run. The old value is gone.
+> st.button returns True for this one run only. That makes count equal to 1, and st.metric briefly shows 1.
+> The next interaction reruns the script. Any click, including one on the "fixed" button or a widget elsewhere, resets count to 0, and the button returns False. The metric goes back to 0.
+> So the counter never gets past 1, and that 1 is visible only on the run triggered by the click itself. Button state works the same way. A button is True for a single rerun and False afterwards, so it can't hold a running total.
+> The fix is to keep the count in st.session_state. That is the per-session store that persists across reruns:
+> if "fixed_count" not in st.session_state:
+>     st.session_state.fixed_count = 0   # initialize once, not on every rerun
+> if st.button("Log a session (fixed)"):
+>    st.session_state.fixed_count += 1
+> st.metric("Sessions logged (fixed)", st.session_state.fixed_count)
+> The if "fixed_count" not in ... guard matters. If you wrote st.session_state.fixed_count = 0 unconditionally, it would reset the count on every rerun, which is the same bug you started with.
+> The TODO at sessions.py:63-67 is where this change goes. I haven't edited anything. I can apply it if you want.  
+
+Manually added initializing the session_state fixed_count and fixed the label/metric to display the correct value. Reran app, and fixed button updates correctly.  
+
+>Q. In your own words, what does "rerun" mean here?  
+>A. Every time you click something in a streamlit app, streamlit runs the entire python script again from the first line, to the last. Picture a whiteboard that gets wiped clean and redrawn from scratch every time anyone touches the board. Your python script is the recipe for rewritting that whiteboard and after every click on a streamlit app, that recipe is rerun/rewritten to the board, anything you did outside the recipe is wiped and only comes back if you manually add it back.
+
+## Part 2
+Tested that add session adds even with empty input.  
+Implemented validation for both whitespace and duration.  
+Reran and tested that validation works correctly.  
+
+>Q. What's one input a user might type that you haven't tested yet?  
+>A. Something I did not test for is emojis, Tested after this question and they work in the subject line, and you can't type them in the duration, it only allows whole numbers.
+
+## Part 3
+Ran sessions.py standalone.
