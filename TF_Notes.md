@@ -112,3 +112,8 @@ Both print the same thing except for the class name.
 >A. The @dataclass genereates __init__ and __repr__ methods without having to write them. Allows you to have a simple class with just the variables and methods you need without having to write a specific __init__ or __repr__ method.
 
 ## Part 4
+Implemented both find_conflicts(sessions) and next_occurrance(last_date, frequency).  
+Tested running sessions.py and everything returns as expected, no errors either.
+
+>Q. Why does find_conflicts need to handle an empty list without crashing?  
+>A. find_conflicts needs to handle empty lists due to it being an expected value that should be allowed to happen, if there are no conflicts, or there are no values to check against yet.
