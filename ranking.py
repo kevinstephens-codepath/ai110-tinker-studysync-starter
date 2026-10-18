@@ -15,9 +15,12 @@ def load_study_spots(csv_path: str) -> list:
     Load study spots from a CSV into a list of dicts, converting
     "distance_miles" to float and "seats_available" to int.
     """
-    # TODO: use csv.DictReader to read csv_path into a list of dicts.
-    # TODO: convert row["distance_miles"] to float and row["seats_available"] to int for each row.
-    raise NotImplementedError
+    with open(csv_path, newline="", encoding="utf-8") as csv_file:
+        rows = list(csv.DictReader(csv_file))
+    for row in rows:
+        row["distance_miles"] = float(row["distance_miles"])
+        row["seats_available"] = int(row["seats_available"])
+    return rows
 
 
 def score_study_spot(profile: dict, spot: dict) -> tuple:
@@ -74,6 +77,6 @@ def render_study_spot_tab():
 
 if __name__ == "__main__":
     spots = load_study_spots("data/study_spots.csv")
-    profile = {"max_noise": "moderate", "max_distance": 1.0, "min_seats": 4}
-    ranked = rank_study_spots(profile, spots, k=3)
-    format_results(ranked)
+    #profile = {"max_noise": "moderate", "max_distance": 1.0, "min_seats": 4}
+    #ranked = rank_study_spots(profile, spots, k=3)
+    #format_results(ranked)

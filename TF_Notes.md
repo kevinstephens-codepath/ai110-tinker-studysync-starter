@@ -117,3 +117,33 @@ Tested running sessions.py and everything returns as expected, no errors either.
 
 >Q. Why does find_conflicts need to handle an empty list without crashing?  
 >A. find_conflicts needs to handle empty lists due to it being an expected value that should be allowed to happen, if there are no conflicts, or there are no values to check against yet.
+
+# TF Notes - 3B
+## Part 1
+Implemented load_study_spots and converted distance_miles and seats_available and return the rows as output.  
+
+Printed the load_study_spots output and got the full list from the CSV all rows as expected with converted numerical variables.
+
+> Q. Why would leaving distance_miles as a string break later code?  
+> A. If our program wanted to calculate which spot is further/closer using comparison, then comparing strings would not accurately represent the variable that is stored. It will need to use a numeric representation to compare or figure out how much further one spot is from another.
+
+## Part 2
+
+
+> Q. Which factor in your scoring formula matters most, and why?  
+> A. 
+
+## Part 3
+
+> Q. What would happen if you sorted ascending instead of descending?  
+> A.
+
+## Part 4
+
+> Q. Who might be underserved by your current weighting?  
+> A. 
+
+## Part 5
+
+> Q. How is this flowchart different from the class diagrams you've drawn before?  
+> A. 
