@@ -1,0 +1,21 @@
+flowchart TD
+    A[/"data/study_spots.csv"/] --> B["load_study_spots()<br/>Parse rows into dicts<br/>distance_miles → float<br/>seats_available → int"]
+    P[/"Student profile<br/>max_noise, max_distance, min_seats"/] --> C
+
+    B --> C["rank_study_spots(profile, spots, k=3)"]
+
+    subgraph Scoring ["Scoring: score_study_spot() for each spot"]
+        direction TB
+        S1{"Noise ≤ max_noise?"}
+        S2{"Distance ≤ max_distance?"}
+        S3{"Seats ≥ min_seats?"}
+        S1 -- "yes: +3 'quiet enough'<br/>no: −3 'too noisy'" --> S2
+        S2 -- "yes: +2 'close enough'<br/>no: −2 'too far away'" --> S3
+        S3 -- "yes: +1 'enough seats'<br/>no: −1 'not enough seats'" --> S4["Return (score, reasons)"]
+    end
+
+    C --> S1
+    S4 --> D["Sort by score, descending"]
+    D --> E["Keep top k results<br/>(spot, score, reasons)"]
+    E --> F["format_results()<br/>Print: N. Name -- Score -- Because: reasons"]
+    F --> G[/"Ranked output"/]

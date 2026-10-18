@@ -146,12 +146,15 @@ Confirmed output:
 > A. If I sorted ascending then the worst weighted spots would show up first instead of the best weighted spots as long as we sorted by score.
 
 ## Part 4
-
+Since my weights in scoring heavily favor quiet environments, and puts the lowest weight on seats_available, a user of my ranking would almost always see the top 3 quietest spots over spots that have an abundance of spots available or are closer in distance creating a filter bubble or bias on quiet study spots.
 
 > Q. Who might be underserved by your current weighting?  
-> A. 
+> A. Large study groups are very much underserved by the current weighting since open seats are weighed the least valuable in my ranking.
 
 ## Part 5
+Generated the Diagram, and saved under ranking_diagram.mmd (since we already have a diagram.mmd from earilier in this tinker project)  
+
+Used mermaid.live to view and verify the accuracy of the diagram.
 
 > Q. How is this flowchart different from the class diagrams you've drawn before?  
-> A. 
+> A. A flowchart shows how data and control move through the code over time. A class diagram shows what the code is made of: its types and how they relate. They answer different questions. The flowchart captures the pipeline and scoring logic, unlike the class overview/interaction diagrams we have made in the past.
