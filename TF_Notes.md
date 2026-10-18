@@ -128,17 +128,25 @@ Printed the load_study_spots output and got the full list from the CSV all rows 
 > A. If our program wanted to calculate which spot is further/closer using comparison, then comparing strings would not accurately represent the variable that is stored. It will need to use a numeric representation to compare or figure out how much further one spot is from another.
 
 ## Part 2
+Implemented score_study_spots, giving the most weight to noise level, and the least weight to seats available, with distance as the middle ground.
 
+Tested with 3 spots, gives accurate reasons and weights.
 
 > Q. Which factor in your scoring formula matters most, and why?  
-> A. 
+> A. In my scoring noise level matters most since this is a study spot, and in my opinion a quiet environment is the most important factor in choosing a study spot.
 
 ## Part 3
+Implemented rank_study_spots and format_results  
+Confirmed output:  
+> 1. Innovation Commons -- Score: 6.0 -- Because: quiet enough, close enough, enough seats  
+> 2. Grand Reading Room -- Score: 6.0 -- Because: quiet enough, close enough, enough seats  
+> 3. Engineering Lounge -- Score: 6.0 -- Because: quiet enough, close enough, enough seats  
 
 > Q. What would happen if you sorted ascending instead of descending?  
-> A.
+> A. If I sorted ascending then the worst weighted spots would show up first instead of the best weighted spots as long as we sorted by score.
 
 ## Part 4
+
 
 > Q. Who might be underserved by your current weighting?  
 > A. 
